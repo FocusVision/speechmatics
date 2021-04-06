@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-require 'mimemagic'
+require 'marcel'
 
 module Speechmatics
   class User::Jobs < API
@@ -39,7 +39,7 @@ module Speechmatics
       raise "No file specified for new job, please provide a :data_file value" unless file_path
       raise "No file exists at path '#{file_path}'" unless File.exist?(file_path)
 
-      content_type = params[:content_type] || MimeMagic.by_path(file_path).to_s
+      content_type = params[:content_type] || Marcel::Magic.by_path(file_path).to_s
       raise "No content type specified for file, please provide a :content_type value" unless content_type
       raise "Content type for file '#{file_path}' is not audio or video, it is '#{content_type}'." unless (content_type =~ /audio|video/)
 
